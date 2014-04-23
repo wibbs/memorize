@@ -28,27 +28,29 @@ class MemorizeGame(GridLayout):
 
     def blinkSquare(self, targetButton, delay):
         originalColor = targetButton.background_color
-        targetButton.background_color = (1, 1, 1, 1)
+        #targetButton.background_color = (1, 1, 1, 1)
+        def set_color(*args):
+            targetButton.background_color = (1, 1, 1, 1)
         def reset_color(*args):
             targetButton.background_color = (originalColor)
+
+        Clock.schedule_once(set_color, delay)
+        delay += .3
         Clock.schedule_once(reset_color, delay)
 
     def on_touch_down(self, touch):
-        #self.blinkSquare()
         self.buildChallenge()
 
 
     def buildChallenge(self):
         delay = 0
         lengthOfChallenge = self.round + 1
-        #while x < lengthOfChallenge:
         choice = random.choice(self.buttonList)
-        #self.blinkSquare(choice)
         self.challenge.append(choice)
 
         #play the challenge
         for x in self.challenge:
-            delay += 1
+            delay += .5
             self.blinkSquare(x,delay)
             print x
 
