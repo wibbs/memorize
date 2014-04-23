@@ -4,3 +4,6 @@ This will be easy after figuring how to get a square to blink.
 Currently when you click the mouse a random square will blink. However, it will stay gray if the same one blinks twice.
 After two clicks 2 squares will blink. After 3 clicks 3 square will blink. etc etc
 This is an easy fix. Just haven't had time
+
+
+Booz: Testing git stuff
