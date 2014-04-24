@@ -5,5 +5,11 @@ Currently when you click the mouse a random square will blink. However, it will 
 After two clicks 2 squares will blink. After 3 clicks 3 square will blink. etc etc
 This is an easy fix. Just haven't had time
 
+<<<<<<< HEAD
 
 Booz: Testing git stuff
+=======
+3-22-14
+Now when you click down a memorization challenge will be built. Each time you click the mouse the challenge will get one block longer.
+I have not added any logic for the user to punch in their attempt yet.
+>>>>>>> 3f958533ca26d4d8a35317fb527d8455616747e0
