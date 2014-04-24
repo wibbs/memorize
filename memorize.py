@@ -27,8 +27,12 @@ class MemorizeGame(GridLayout):
             self.add_widget(button)
 
     def blinkSquare(self, targetButton, delay):
+        '''
+        changes the squares color to 1,1,1,1 then changes it back after .3 seconds.
+        delay tells the clock how long ot wait before blinking the next square
+        see buildChallenge() for delay usage
+        '''
         originalColor = targetButton.background_color
-        #targetButton.background_color = (1, 1, 1, 1)
         def set_color(*args):
             targetButton.background_color = (1, 1, 1, 1)
         def reset_color(*args):
@@ -48,13 +52,11 @@ class MemorizeGame(GridLayout):
         choice = random.choice(self.buttonList)
         self.challenge.append(choice)
 
-        #play the challenge
+        #play the challenge to the player
         for x in self.challenge:
             delay += .5
             self.blinkSquare(x,delay)
             print x
-
-
 
 class MemorizeApp(App):
 
