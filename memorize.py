@@ -6,6 +6,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.vector import Vector
 import random
 import time
+import sys
 
 from kivy.clock import Clock
 
@@ -21,13 +22,20 @@ class MemorizeGame(GridLayout):
         self.button2 = Button(text='', background_color=(0,1,1,1))
         self.button3 = Button(text='', background_color=(1,0,1,1))
         self.button4 = Button(text='', background_color=(0,1,0,1))
-        #self.startBtn = Button(text='Start Round', size_hint_x=None, width=10)
+        self.startBtn = Button(text='Start Round')
+        self.quitBtn = Button(text="Quit")
         self.buttonList = [self.button1, self.button2, self.button3, self.button4]
+
+        self.startBtn.bind(on_press=self.buildChallenge)
+        self.quitBtn.bind(on_press=self.quit)
 
         #add buttons to the screen                                                                                                                                                                                                 
         for button in self.buttonList:
             self.add_widget(button)
-        #self.add_widget(self.startBtn)
+            button.bind(on_press=self.getClickedButton)
+        self.add_widget(self.startBtn)
+        self.add_widget(self.quitBtn)
+
 
     def blinkSquare(self, targetButton, delay):
         '''
@@ -45,12 +53,17 @@ class MemorizeGame(GridLayout):
         delay += .3
         Clock.schedule_once(reset_color, delay)
 
+    '''
     def on_touch_down(self, touch):
-        self.buildChallenge()
-        #self.userAttempt()
+        print touch
+    '''
 
+    def getClickedButton(self, instance):
+        #check to see if what the user pressed is the right button
+        self.userSelected = instance
+        print instance
 
-    def buildChallenge(self):
+    def buildChallenge(self, instance):
         delay = 0
         lengthOfChallenge = self.round + 1
         choice = random.choice(self.buttonList)
@@ -63,11 +76,10 @@ class MemorizeGame(GridLayout):
             self.blinkSquare(x,delay)
             print x
 
-    #def userAttempt():
 
-class StartButton(Widget):
-    def buttonUp():
-        print "button was pressed"
+    def quit(self, instance):
+        sys.exit()
+    #def userAttempt():
 
 
 class MemorizeApp(App):
