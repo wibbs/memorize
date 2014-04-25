@@ -21,11 +21,13 @@ class MemorizeGame(GridLayout):
         self.button2 = Button(text='', background_color=(0,1,1,1))
         self.button3 = Button(text='', background_color=(1,0,1,1))
         self.button4 = Button(text='', background_color=(0,1,0,1))
+        #self.startBtn = Button(text='Start Round', size_hint_x=None, width=10)
         self.buttonList = [self.button1, self.button2, self.button3, self.button4]
 
         #add buttons to the screen                                                                                                                                                                                                 
         for button in self.buttonList:
             self.add_widget(button)
+        #self.add_widget(self.startBtn)
 
     def blinkSquare(self, targetButton, delay):
         '''
@@ -64,13 +66,14 @@ class MemorizeGame(GridLayout):
     #def userAttempt():
 
 class StartButton(Widget):
-    def pressed():
+    def buttonUp():
         print "button was pressed"
 
 
 class MemorizeApp(App):
 
     def build(self):
+        self.title = "Memorize"
         #parent = Widget()
         game = MemorizeGame()
         #startbtn = Button(text='start')
