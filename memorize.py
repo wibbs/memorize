@@ -3,6 +3,7 @@ from kivy.clock import Clock
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
 from kivy.uix.gridlayout import GridLayout
+from kivy.vector import Vector
 import random
 import time
 
@@ -44,6 +45,7 @@ class MemorizeGame(GridLayout):
 
     def on_touch_down(self, touch):
         self.buildChallenge()
+        #self.userAttempt()
 
 
     def buildChallenge(self):
@@ -53,15 +55,26 @@ class MemorizeGame(GridLayout):
         self.challenge.append(choice)
 
         #play the challenge to the player
+        print "round:", self.round
         for x in self.challenge:
             delay += .5
             self.blinkSquare(x,delay)
             print x
 
+    #def userAttempt():
+
+class StartButton(Widget):
+    def pressed():
+        print "button was pressed"
+
+
 class MemorizeApp(App):
 
     def build(self):
-        game= MemorizeGame()
+        #parent = Widget()
+        game = MemorizeGame()
+        #startbtn = Button(text='start')
+        #game.add_widget(startbtn)
         return game
 
 if __name__ == "__main__":
