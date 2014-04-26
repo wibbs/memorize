@@ -106,11 +106,10 @@ class MemorizeGame(GridLayout):
                 return False
 
     def userMode(self):
-        self.userModeEnabled = True
         #Enable user mode. This is where the user tries to repeat the pattern displayed to him
+        self.userModeEnabled = True
         self.userSelectedList = []
         Clock.schedule_interval(self.compareChallenge, 1 / 30.)
-
 
     def quit(self, instance):
         sys.exit()
