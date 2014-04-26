@@ -10,4 +10,10 @@ Now when you click down a memorization challenge will be built. Each time you cl
 I have not added any logic for the user to punch in their attempt yet.
 
 3-24-14
-Next step is to figure out how to add a start button to a grid layout without jacking everything up
+Just added two buttons to the bottom of the grid to start the round and quit.
+
+3-25-14
+Added logic for usermode which checks if the users selections are correct has they enter them
+
+Current Objective:
+When the user loses the screen gets wiped and game over is displayed

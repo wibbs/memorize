@@ -7,7 +7,6 @@ from kivy.vector import Vector
 import random
 import time
 import sys
-
 from kivy.clock import Clock
 
 class MemorizeGame(GridLayout):
@@ -16,6 +15,8 @@ class MemorizeGame(GridLayout):
         self.challenge = []
         self.round = 1
         self.cols = 2
+        self.userSelectedList = []
+        self.userModeEnabled = False
 
         #create buttons                                                                                                                                                                                                            
         self.button1 = Button(text='', background_color=(0,0,1,1))
@@ -33,9 +34,10 @@ class MemorizeGame(GridLayout):
         for button in self.buttonList:
             self.add_widget(button)
             button.bind(on_press=self.getClickedButton)
+
         self.add_widget(self.startBtn)
         self.add_widget(self.quitBtn)
-
+        Clock.schedule_interval(self.blinkStart, 1 / 1.)
 
     def blinkSquare(self, targetButton, delay):
         '''
@@ -45,7 +47,7 @@ class MemorizeGame(GridLayout):
         '''
         originalColor = targetButton.background_color
         def set_color(*args):
-            targetButton.background_color = (1, 1, 1, 1)
+            targetButton.background_color = (1, 1, 1, 0)
         def reset_color(*args):
             targetButton.background_color = (originalColor)
 
@@ -53,14 +55,14 @@ class MemorizeGame(GridLayout):
         delay += .3
         Clock.schedule_once(reset_color, delay)
 
-    '''
-    def on_touch_down(self, touch):
-        print touch
-    '''
+    def blinkStart(self, dt):
+        if self.userModeEnabled == False:
+            self.blinkSquare(self.startBtn, .5)
 
     def getClickedButton(self, instance):
         #check to see if what the user pressed is the right button
-        self.userSelected = instance
+        self.userSelectedList.append(instance)
+        self.userModeEnabled = True
         print instance
 
     def buildChallenge(self, instance):
@@ -76,21 +78,52 @@ class MemorizeGame(GridLayout):
             self.blinkSquare(x,delay)
             print x
 
+        self.userMode()
+
+    def compareChallenge(self, dt):
+        #This will test the users entry against the challenge array
+        #User Mode will be disabled if the user finishes all successfully
+        #or if they fail
+        x = 0
+        roundWon = False
+        limit = len(self.challenge)
+
+        if self.userModeEnabled == True:
+            for userAnswer in self.userSelectedList:
+                if userAnswer == self.challenge[x]:
+                    x += 1
+                    self.userModeEnabled = True
+                else:
+                    self.userModeEnabled = False
+                    print "you lose"
+                    return False
+
+            #check to see if the challenge is complete
+            if x == limit:
+                print "Round Won!"
+                self.userModeEnabled = False
+                roundWon = True
+                return False
+
+    def userMode(self):
+        self.userModeEnabled = True
+        #Enable user mode. This is where the user tries to repeat the pattern displayed to him
+        self.userSelectedList = []
+        Clock.schedule_interval(self.compareChallenge, 1 / 30.)
+
 
     def quit(self, instance):
         sys.exit()
-    #def userAttempt():
 
 
 class MemorizeApp(App):
 
     def build(self):
         self.title = "Memorize"
-        #parent = Widget()
         game = MemorizeGame()
-        #startbtn = Button(text='start')
-        #game.add_widget(startbtn)
+
         return game
 
 if __name__ == "__main__":
     MemorizeApp().run()
+
