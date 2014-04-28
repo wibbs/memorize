@@ -95,7 +95,7 @@ class MemorizeGame(GridLayout):
                     self.userModeEnabled = True
                 else:
                     self.userModeEnabled = False
-                    print "you lose"
+                    self.gameOver()
                     return False
 
             #check to see if the challenge is complete
@@ -110,6 +110,16 @@ class MemorizeGame(GridLayout):
         self.userModeEnabled = True
         self.userSelectedList = []
         Clock.schedule_interval(self.compareChallenge, 1 / 30.)
+
+    def gameOver(self):
+        print "Game Over"
+        self.remove_widget(self.startBtn)
+        self.remove_widget(self.quitBtn)
+        for x in self.buttonList:
+            self.remove_widget(x)
+        quitButton = Button(text='Quit Game', font_size=14)
+        quitButton.bind(on_press=self.quit)
+        self.add_widget(quitButton)
 
     def quit(self, instance):
         sys.exit()
